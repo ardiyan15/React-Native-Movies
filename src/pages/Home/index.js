@@ -5,13 +5,46 @@ import Cards from '../../components/Cards'
 
 const Home = ({ navigation }) => {
     const [value, onChangeText] = useState('e.g Avengers')
+    const [existMovie, onDisplay] = useState('')
+    const [dataMovie, setDataMovie] = useState()
+    const [result, setResult] = useState('')
 
     let handleTextInput = (e) => {
         onChangeText(e.target.value)
     }
 
     let getData = () => {
-        console.log(value)
+        console.log('Tombol di click')
+        fetch('http://www.omdbapi.com/?apikey=8240f7c5&s=' + value, {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => response.json())
+            .then(res => {
+                if (res.Response === 'True') {
+                    setDataMovie(res.Search)
+                    onDisplay(true)
+                }
+                if (res.Response === 'False') {
+                    onDisplay(false)
+                    setResult(res.Error)
+                }
+            })
+            .catch(error => console.log(error))
+    }
+
+    function ExistContent() {
+        return <Cards
+            onPress={navigation}
+            data={dataMovie}
+        />
+    }
+
+    function NotExist() {
+        return <Text style={styles.movieNotExist}> {result} </Text>
     }
 
     return (
@@ -33,7 +66,7 @@ const Home = ({ navigation }) => {
             </View>
             <ScrollView>
                 <View>
-                    <Cards onPress={navigation} />
+                    {existMovie ? <ExistContent /> : <NotExist />}
                 </View>
             </ScrollView>
         </View>
@@ -76,5 +109,12 @@ const styles = StyleSheet.create({
     },
     searchText: {
         color: 'white'
+    },
+    movieNotExist: {
+        color: 'white',
+        textAlign: 'center',
+        fontWeight: 'bold',
+        fontSize: 20,
+        marginTop: 20
     }
 })
