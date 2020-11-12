@@ -1,6 +1,10 @@
 import React, { useState } from 'react'
 import { StyleSheet, Text, TextInput, View, Button, Alert } from 'react-native'
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler'
+import { RFPercentage, RFValue } from 'react-native-responsive-fontsize'
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen'
+
+
 import Cards from '../../components/Cards'
 
 const Home = ({ navigation }) => {
@@ -24,6 +28,7 @@ const Home = ({ navigation }) => {
         })
             .then(response => response.json())
             .then(res => {
+                console.log(res)
                 if (res.Response === 'True') {
                     setDataMovie(res.Search)
                     onDisplay(true)
@@ -85,13 +90,13 @@ const styles = StyleSheet.create({
         paddingBottom: 10
     },
     title: {
-        fontSize: 30,
+        fontSize: RFPercentage(5),
         marginTop: 30,
         color: 'white'
     },
     inputSearch: {
-        width: 300,
-        height: 40,
+        width: wp('80%'),
+        height: hp('7%'),
         borderColor: '#d1cdcd',
         borderWidth: .7,
         borderRadius: 7,

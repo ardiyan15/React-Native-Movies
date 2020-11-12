@@ -1,6 +1,8 @@
 import React from 'react'
 import { View, Text, Image, StyleSheet } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen'
+import { RFPercentage, RFValue } from 'react-native-responsive-fontsize'
 
 const Card = (props) => {
     let navigation = props.onPress
@@ -39,8 +41,8 @@ export default Card
 
 const styles = StyleSheet.create({
     cardContent: {
-        width: 150,
-        right: -40
+        width: wp('20%'),
+        right: wp('-20%')
     },
     cardBackground: {
         flexDirection: 'row-reverse',
@@ -48,13 +50,13 @@ const styles = StyleSheet.create({
         alignSelf: 'stretch',
         zIndex: -1,
         marginTop: -100,
-        marginLeft: 20,
-        marginRight: 20,
+        marginLeft: wp('5%'),
+        marginRight: wp('5%'),
         marginBottom: 20,
         height: 150,
     },
     image: {
-        width: 120,
+        width: wp('30%'),
         height: 170,
         top: 30,
         marginLeft: 40
@@ -70,7 +72,7 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     },
     title: {
-        fontSize: 15,
+        fontSize: RFPercentage(5),
         fontWeight: 'bold',
         color: 'white',
         marginBottom: 15,
@@ -78,8 +80,7 @@ const styles = StyleSheet.create({
         fontFamily: "Montserrat-Regular"
     },
     textCardContainer: {
-        marginTop: 10,
-        elevation: 5
+        marginTop: '10%',
     },
     genre: {
         color: 'white'
